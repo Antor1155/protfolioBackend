@@ -42,7 +42,7 @@ app.post("/email", (req, res) => {
             res.send({result:"error, Antor must check backend server"})
           } else {
             console.log('Email sent: ' + info.response);
-            res.send({result:"success, ANTOR did to job perfectly"})
+            res.send({result:"success, ANTOR did the job perfectly"})
 
             // write code here to save failed mail in database and see later 
           }
