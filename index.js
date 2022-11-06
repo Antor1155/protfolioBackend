@@ -43,6 +43,8 @@ app.post("/email", (req, res) => {
           } else {
             console.log('Email sent: ' + info.response);
             res.send({result:"success, ANTOR did to job perfectly"})
+
+            // write code here to save failed mail in database and see later 
           }
         });
     }
