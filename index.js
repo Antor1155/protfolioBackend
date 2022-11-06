@@ -1,4 +1,4 @@
-const port = process.env.PORT ||  5000;
+const port = process.env.PORT || 5000;
 
 const express = require("express");
 const cors = require("cors");
@@ -7,42 +7,62 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/",(req, res)=>{
-    res.send("res from app .get" )
+app.get("/", (req, res) => {
+    res.send("res from app .get")
 })
-
-app.post("/email",(req, res)=>{
-    console.log(req.body.email);
-    res.send( {obj:"this is response send to the website back"});
-})
-
-app.listen(port, ()=>{
-    console.log("this port is listening to " + port)
-});
 
 
 // this part is to send mail to my gmail 
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'md.antor1155job@gmail.com',
-    pass: 'antor1155007073'
-  }
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'md.antor1155job@gmail.com',
+        pass: 'oykggaypditeiaza'
+    }
 });
 
-var mailOptions = {
-  from: 'youremail@gmail.com',
-  to: 'myfriend@yahoo.com',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
 
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
+// when get post mail form protfolio website, then send mail to my email 
+app.post("/email", (req, res) => {
+    console.log(req.body.email);
+
+    if (req.body.email) {
+        let mailOptions = {
+            from: 'md.antor1155job@gmail.com',
+            to: 'md.antor1155@gmail.com',
+            subject: req.body.subject,
+            text: req.body.email
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log("error", error);
+            res.send({result:"error, Antor must check backend server"})
+          } else {
+            console.log('Email sent: ' + info.response);
+            res.send({result:"success, ANTOR did to job perfectly"})
+          }
+        });
+    }
+
+
+    // res.send({ result: "there was no mail in the package" });
+})
+
+
+
+
+
+// transporter.sendMail(mailOptions, function(error, info){
+//   if (error) {
+//     console.log("error", error);
+//   } else {
+//     console.log('Email sent: ' + info.response);
+//   }
+// });
+
+app.listen(port, () => {
+    console.log("this port is listening to " + port)
 });
