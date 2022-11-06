@@ -15,11 +15,12 @@ app.get("/", (req, res) => {
 // this part is to send mail to my gmail 
 const nodemailer = require('nodemailer');
 
+require("dotenv").config();
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'md.antor1155job@gmail.com',
-        pass: 'oykggaypditeiaza'
+        user: process.env.user,
+        pass: process.env.pass
     }
 });
 
